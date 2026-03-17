@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lottie/lottie.dart';
 import 'package:taskati/core/Function/navigator.dart';
 import 'package:taskati/core/model/taskdata.dart';
 import 'package:taskati/core/services/hive.dart';
 import 'package:taskati/core/widgets/extension.dart';
-import 'package:taskati/core/widgets/image.dart';
 import 'package:taskati/presentation/AddTask/page/add_task.dart';
 import 'package:taskati/presentation/home/widget/card_task.dart';
 
