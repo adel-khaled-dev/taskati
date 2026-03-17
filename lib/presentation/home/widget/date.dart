@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:taskati/core/colors/colors.dart';
 
 class Date extends StatelessWidget {
-  const Date({
-    super.key,
-  });
+  const Date({super.key, required this.ondate});
+  final Function(DateTime) ondate;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +14,7 @@ class Date extends StatelessWidget {
       width: 64,
       initialSelectedDate: DateTime.now(),
       selectionColor: ColorsApp.primarycolor,
+      onDateChange: ondate,
     );
   }
 }

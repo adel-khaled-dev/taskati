@@ -7,9 +7,7 @@ import 'package:taskati/presentation/home/page/home.dart';
 import 'package:taskati/styles/styles.dart';
 
 class Header extends StatelessWidget {
-  const Header({
-    super.key,
-  });
+  const Header({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +21,9 @@ class Header extends StatelessWidget {
                   fit: BoxFit.cover,
                   width: 50,
                   height: 50,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(ImagesApp.user, width: 50, height: 50);
+                  },
                 )
               : Image.asset(ImagesApp.user, width: 50, height: 50),
         ),
@@ -35,9 +36,7 @@ class Header extends StatelessWidget {
             4.h,
             Text(
               name!,
-              style: TextStyles.subtitel.copyWith(
-                color: ColorsApp.black,
-              ),
+              style: TextStyles.subtitel.copyWith(color: ColorsApp.black),
             ),
           ],
         ),

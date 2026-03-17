@@ -6,15 +6,26 @@ import 'package:taskati/core/widgets/icon_app.dart';
 import 'package:taskati/styles/styles.dart';
 
 class WidgetTime extends StatefulWidget {
-  const WidgetTime({super.key, required this.text, required this.onTimeDate});
+  const WidgetTime({
+    super.key,
+    required this.text,
+    required this.onTimeDate,
+    this.initialTime,
+  });
   final Function(String) onTimeDate;
   final String text;
+  final String? initialTime;
   @override
   State<WidgetTime> createState() => _WidgetTimeState();
 }
 
 class _WidgetTimeState extends State<WidgetTime> {
-  String _time = "Select time";
+  late String _time;
+  @override
+  void initState() {
+    super.initState();
+    _time = widget.initialTime ?? "Select time";
+  }
 
   @override
   Widget build(BuildContext context) {

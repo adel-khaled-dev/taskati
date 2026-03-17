@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:taskati/core/Function/navigator.dart';
 import 'package:taskati/core/colors/colors.dart';
+import 'package:taskati/core/model/taskdata.dart';
+import 'package:taskati/core/services/hive.dart';
 import 'package:taskati/core/services/share_preferences.dart';
 import 'package:taskati/core/widgets/extension.dart';
 import 'package:taskati/presentation/AddTask/page/add_task.dart';
@@ -34,6 +38,8 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
+  String selected = DateFormat('d MMM yyyy').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +60,46 @@ class _HomeState extends State<Home> {
                   24.h,
                   ContainerDetalsHome(),
                   29.h,
-                  Date(),
+                  Date(
+                    ondate: (date) {
+                      setState(() {
+                        selected = DateFormat('d MMM yyyy').format(date);
+                      });
+                    },
+                  ),
                   32.h,
                   TabBarWidget(),
                   Expanded(
-                    child: TabBarView(
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        //All
-                        ViewTab(),
-                        /*in progress*/
-                        ViewTab(),
-                        //completed
-                        ViewTab(),
-                      ],
+                    //filter
+                    child: ValueListenableBuilder<Box<DataTask>>(
+                      valueListenable: HiveHelpar.taskBox.listenable(),
+                      builder: (context, box, child) {
+                        //final tasks = box.values.toList();
+                        final List<DataTask> tasks = [];
+                        for (var task in box.values) {
+                          if (task.date == selected) {
+                            tasks.add(task);
+                          }
+                        }
+                        final inProgtess = tasks
+                            .where((task) => !task.isCompleted)
+                            .toList();
+                        final completad = tasks
+                            .where((task) => task.isCompleted)
+                            .toList();
+
+                        return TabBarView(
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            //All
+                            ViewTab(tasks: tasks),
+                            /*in progress*/
+                            ViewTab(tasks: inProgtess),
+                            //completed
+                            ViewTab(tasks: completad),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ],

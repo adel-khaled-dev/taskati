@@ -7,12 +7,13 @@ class WidgetFiledAdd extends StatelessWidget {
     super.key,
     required this.h,
     required this.titel,
-    required this.hent, required this.onChing,
+    required this.hent, required this.onChing, required this.control,
   });
   final double h;
   final String titel;
   final String hent;
   final Function(String) onChing;
+  final TextEditingController control;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,6 +30,7 @@ class WidgetFiledAdd extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        controller: control,
         onChanged: onChing,
         decoration: InputDecoration(
           label: Text(titel),

@@ -1,51 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:taskati/core/colors/colors.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lottie/lottie.dart';
+import 'package:taskati/core/Function/navigator.dart';
 import 'package:taskati/core/model/taskdata.dart';
 import 'package:taskati/core/services/hive.dart';
 import 'package:taskati/core/widgets/extension.dart';
+import 'package:taskati/core/widgets/image.dart';
+import 'package:taskati/presentation/AddTask/page/add_task.dart';
+import 'package:taskati/presentation/home/widget/card_task.dart';
 
 class ViewTab extends StatefulWidget {
-  const ViewTab({super.key});
+  const ViewTab({super.key, required this.tasks});
+  final List<DataTask> tasks;
 
   @override
   State<ViewTab> createState() => _ViewTabState();
 }
 
 class _ViewTabState extends State<ViewTab> {
-  List<DataTask> task = [];
-  @override
-  void initState() {
-    super.initState();
-    task = HiveHelpar.taskBox.values.toList();
-  }
-
   @override
   Widget build(BuildContext context) {
+    if (widget.tasks.isEmpty) {
+      return Center(
+        child: Text("No Tasks Found"), // Lottie.asset(ImagesApp.loding),
+      );
+    }
     return ListView.separated(
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 3.0, left: 3),
-          child: Container(
-            width: 331,
-            height: 94,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 0.01,
-                  color: ColorsApp.black.withValues(alpha: 0.5),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(15),
-              color: ColorsApp.white,
+        final task = widget.tasks[index];
+        return Slidable(
+          key: UniqueKey(),
+          startActionPane: ActionPane(
+            motion: const ScrollMotion(),
+
+            dismissible: DismissiblePane(
+              onDismissed: () {
+                HiveHelpar.taskBox.delete(task.id);
+              },
             ),
-            child: Text(task[index].title),
+
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  HiveHelpar.taskBox.delete(task.id);
+                },
+                backgroundColor: const Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: 'Delete',
+              ),
+            ],
           ),
+
+          endActionPane: ActionPane(
+            motion: ScrollMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  HiveHelpar.cashDataTask(
+                    task.id,
+                    task.copywith(isCompleted: true),
+                  );
+                },
+                backgroundColor: Color(0xFF7BC043),
+                foregroundColor: Colors.white,
+                icon: Icons.done,
+                label: 'Completed',
+              ),
+              SlidableAction(
+                onPressed: (context) {
+                  navigator(context, AddTask(task: task));
+                },
+                backgroundColor: Color(0xFF0392CF),
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: 'Edit',
+              ),
+            ],
+          ),
+
+          child: CardTask(task: task),
         );
       },
       separatorBuilder: (context, index) {
         return 18.h;
       },
-      itemCount: task.length,
+      itemCount: widget.tasks.length,
     );
   }
 }

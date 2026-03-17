@@ -1,6 +1,8 @@
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:taskati/core/model/taskdata.dart';
 
+
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:taskati/core/model/taskdata.dart';
+import 'package:taskati/hive/hive_registrar.g.dart';
 
 
 class HiveHelpar {
@@ -11,6 +13,7 @@ class HiveHelpar {
   //init
   static Future<void> init() async {
     await Hive.initFlutter();
+    Hive.registerAdapters();
     taskBox = await Hive.openBox<DataTask>(taskBoxKey);
   }
 
