@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.7
   flutter_slidable: ^4.0.3
-  flutter_svg: ^2.2.3s
+  flutter_svg: ^2.2.3
   hive_ce: ^2.19.3
   hive_ce_flutter: ^2.1.0
   image_picker: ^1.2.1

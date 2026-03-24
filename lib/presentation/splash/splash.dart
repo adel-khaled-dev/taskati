@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:taskati/core/Function/navigator.dart';
+import 'package:taskati/core/services/share_preferences.dart';
 import 'package:taskati/core/widgets/image.dart';
 import 'package:taskati/core/widgets/extension.dart';
 import 'package:taskati/presentation/Start/completeprofile.dart';
+import 'package:taskati/presentation/home/page/home.dart';
 import 'package:taskati/styles/styles.dart';
 
 class Splash extends StatefulWidget {
@@ -15,13 +20,18 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    super.initState();
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-       
-        context,
-        MaterialPageRoute(builder: (context) => const Completeprofile()),
-      );
-      super.initState();
+      var image = Sharedprefs.getString(Sharedprefs.imageKey);
+      var name = Sharedprefs.getString(Sharedprefs.nameKey);
+      if (image.isNotEmpty && name.isNotEmpty) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      } else {
+        navigator(context, Completeprofile());
+      }
     });
   }
 

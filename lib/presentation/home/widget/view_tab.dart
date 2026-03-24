@@ -39,6 +39,7 @@ class _ViewTabState extends State<ViewTab> {
 
             children: [
               SlidableAction(
+                borderRadius: BorderRadius.circular(15),
                 onPressed: (context) {
                   HiveHelpar.taskBox.delete(task.id);
                 },
