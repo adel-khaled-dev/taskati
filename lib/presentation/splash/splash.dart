@@ -52,6 +52,8 @@ class _SplashState extends State<Splash> {
               Text("Taskati", style: TextStyles.titel),
               18.h,
               Text("It’s time to get organized", style: TextStyles.hinttext),
+              10.h,
+              Text("version: 0.2.0"),
             ],
           ),
         ),
