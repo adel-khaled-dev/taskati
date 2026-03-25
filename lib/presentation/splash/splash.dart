@@ -21,7 +21,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       var image = Sharedprefs.getString(Sharedprefs.imageKey);
       var name = Sharedprefs.getString(Sharedprefs.nameKey);
       if (image.isNotEmpty && name.isNotEmpty) {
