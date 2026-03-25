@@ -1,12 +1,13 @@
 name: taskati
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.2
 
 environment:
   sdk: ^3.10.4
 
 dependencies:
+  flutter_bloc: ^9.1.1
   buttons_tabbar: ^1.3.8
   date_picker_timeline: ^1.2.7
   flutter:

@@ -19,7 +19,6 @@ class AddTask extends StatefulWidget {
   @override
   State<AddTask> createState() => _AddTaskState();
 }
-
 class _AddTaskState extends State<AddTask> {
   late final TextEditingController _titelcontrol;
   late final TextEditingController _descrbtioncontrol;
@@ -73,7 +72,7 @@ class _AddTaskState extends State<AddTask> {
                 },
                 h: 50,
                 hent: "Add Task",
-                titel: "Titel",
+                titel: "Title",
               ),
               47.h,
               WidgetFiledAdd(
@@ -107,7 +106,7 @@ class _AddTaskState extends State<AddTask> {
                 },
                 text: "End Time",
               ),
-              150.h,
+              130.h,
               Button(
                 name: widget.task != null ? "Save" : "Add Task",
                 onPressed: () {

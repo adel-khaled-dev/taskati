@@ -55,6 +55,7 @@ class _ViewTabState extends State<ViewTab> {
             motion: ScrollMotion(),
             children: [
               SlidableAction(
+                borderRadius: BorderRadius.circular(15),
                 onPressed: (context) {
                   HiveHelpar.cashDataTask(
                     task.id,
@@ -66,7 +67,9 @@ class _ViewTabState extends State<ViewTab> {
                 icon: Icons.done,
                 label: 'Completed',
               ),
+              2.w,
               SlidableAction(
+                borderRadius: BorderRadius.circular(15),
                 onPressed: (context) {
                   navigator(context, AddTask(task: task));
                 },
